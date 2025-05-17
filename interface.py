@@ -4,6 +4,7 @@ import gradio as gr
 from pathlib import Path
 import time
 import shutil
+import numpy as np # the values in content are sometimes np.floats, so we need to import np for eval() in the process_message function to work properly
 from typing import AsyncGenerator, List, Optional, Tuple
 from gradio import ChatMessage
 

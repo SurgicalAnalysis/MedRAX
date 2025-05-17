@@ -172,3 +172,5 @@ logs/
 temp/
 
 .gradio/
+
+model-weights/
