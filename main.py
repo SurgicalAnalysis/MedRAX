@@ -65,6 +65,7 @@ def initialize_agent(
         ),
         "ImageVisualizerTool": lambda: ImageVisualizerTool(),
         "DicomProcessorTool": lambda: DicomProcessorTool(temp_dir=temp_dir),
+        "NiftiProcessorTool": lambda: NiftiProcessorTool(temp_dir=temp_dir),
     }
 
     # Initialize only selected tools or all if none specified
@@ -101,6 +102,7 @@ if __name__ == "__main__":
     selected_tools = [
         "ImageVisualizerTool",
         "DicomProcessorTool",
+        "NiftiProcessorTool",
         # "ChestXRayClassifierTool",
         # "ChestXRaySegmentationTool",
         # "ChestXRayReportGeneratorTool",

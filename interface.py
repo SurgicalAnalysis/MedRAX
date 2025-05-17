@@ -60,6 +60,9 @@ class ChatInterface:
         if suffix == ".dcm":
             output, _ = self.tools_dict["DicomProcessorTool"]._run(str(saved_path))
             self.display_file_path = output["image_path"]
+        elif suffix == ".nii" or suffix == ".nii.gz":
+            output, _ = self.tools_dict["NiftiProcessorTool"]._run(str(saved_path))
+            self.display_file_path = output["image_path"]
         else:
             self.display_file_path = str(saved_path)
 
@@ -107,7 +110,7 @@ class ChatInterface:
             self.current_thread_id = str(time.time())
 
         messages = []
-        image_path = self.original_file_path or display_image
+        image_path = display_image # NOTE: for the chat prompts only imgae formats are supported (was — self.original_file_path or display_image)
 
         if image_path is not None:
             # Send path for tools
@@ -243,6 +246,10 @@ def create_demo(agent, tools_dict):
                             "📄 Upload DICOM",
                             file_types=["file"],
                         )
+                        nifti_upload = gr.UploadButton(
+                            "💾 Upload NIfTI",
+                            file_types=["file"],
+                        )
                     with gr.Row():
                         clear_btn = gr.Button("Clear Chat")
                         new_thread_btn = gr.Button("New Thread")
@@ -273,6 +280,8 @@ def create_demo(agent, tools_dict):
         upload_button.upload(handle_file_upload, inputs=upload_button, outputs=image_display)
 
         dicom_upload.upload(handle_file_upload, inputs=dicom_upload, outputs=image_display)
+
+        nifti_upload.upload(handle_file_upload, inputs=nifti_upload, outputs=image_display)
 
         clear_btn.click(clear_chat, outputs=[chatbot, image_display])
         new_thread_btn.click(new_thread, outputs=[chatbot, image_display])

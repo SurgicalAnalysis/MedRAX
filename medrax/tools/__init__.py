@@ -8,4 +8,5 @@ from .llava_med import *
 from .grounding import *
 from .generation import *
 from .dicom import *
+from .nifti import *
 from .utils import *
